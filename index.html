@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>송가네 STORE</title>
+<meta name="description" content="송가네 STORE 카카오 친구 추가 후 상품 보러 가기">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ee;
+    --card: #ffffff;
+    --ink: #1d1b19;
+    --sub: #6b645c;
+    --accent: #e8711c;
+    --kakao: #fee500;
+    --line: #e7e1d8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans KR", system-ui, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 440px; margin: 0 auto; padding: 18px 16px 32px; }
+  header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  header img { width: 40px; height: 40px; border-radius: 50%; }
+  header b { font-size: 17px; }
+
+  h1 { font-size: 24px; font-weight: 900; line-height: 1.35; margin-bottom: 10px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { color: var(--sub); font-size: 15px; margin-bottom: 18px; }
+
+  .perks { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px; margin-bottom: 16px; }
+  .perks li { list-style: none; display: flex; gap: 10px; padding: 4px 0; font-size: 15px; }
+  .perks li span { color: var(--accent); font-weight: 900; }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 58px; border-radius: 14px;
+    font-size: 17px; font-weight: 700; text-decoration: none;
+    transition: transform .08s;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-kakao { background: var(--kakao); color: #191600; }
+  .btn-kakao svg { width: 22px; height: 22px; }
+  .done-note { display: none; text-align: center; color: var(--sub); font-size: 14px; margin-top: 8px; }
+  .added .done-note { display: block; }
+
+  .letter { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; font-size: 15px; line-height: 1.6; word-break: keep-all; }
+  .letter p + p { margin-top: 10px; }
+  .letter .hello { font-size: 18px; font-weight: 900; }
+  .letter #pMsg:empty { display: none; }
+  .letter .invite { font-weight: 700; }
+  .letter .invite em { font-style: normal; color: var(--accent); }
+
+  .step { font-size: 13px; color: var(--sub); font-weight: 700; margin: 0 0 8px 2px; }
+  .gap { height: 16px; }
+
+  .product { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+  .product .row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .product img { flex: none; width: 72px; height: 72px; border-radius: 10px; object-fit: contain; background: #fff; border: 1px solid var(--line); }
+  .product .name { font-weight: 700; font-size: 16px; line-height: 1.35; }
+  .product .btn-go { background: var(--ink); color: #fff; }
+  .added .product { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+
+  footer { margin-top: 28px; text-align: center; color: var(--sub); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="page">
+  <header>
+    <img src="logo.jpg" alt="">
+    <b>송가네 STORE</b>
+  </header>
+
+  <div class="letter">
+    <p class="hello">안녕하세요</p>
+    <p>송가네 STORE 와 송가네 TV 를 운영하고 있는 <b>송종혁</b> 입니다.
+    먼저 저희 송가네를 응원해 주시고 관심 가져 주셔서 감사합니다.</p>
+    <p id="pMsg"></p>
+    <p class="invite">저희 송가네 STORE를 <em>친구 추가</em> 하시면
+    할인이벤트, 공동구매, 제품 입고 소식 등을 빠르게 받아보실 수 있습니다.</p>
+    <p>앞으로 더 많은 혜택을 드리기 위해 노력하겠습니다.</p>
+  </div>
+
+  <a class="btn btn-kakao" id="kakaoBtn" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.3 4.6 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.6.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+    카카오톡 친구 추가
+  </a>
+  <p class="done-note">친구 추가 감사합니다! 아래에서 상품을 보세요.</p>
+
+  <div class="gap"></div>
+
+  <div class="product">
+    <div class="row">
+      <img id="pImg" src="" alt="">
+      <p class="name" id="pName"></p>
+    </div>
+    <a class="btn btn-go" id="goBtn" href="#">상품 보러 가기</a>
+  </div>
+
+  <footer>송가네 STORE &nbsp;|&nbsp; 네이버 스마트스토어에서 구매하실 수 있어요</footer>
+</div>
+
+<script>
+  // 카카오 채널 친구 추가 주소: 현재 송가네장작 채널(11/21 사장님 지시). 채널 이름이 바뀌거나 새 채널로 가면 여기만 바꾼다
+  const KAKAO_FRIEND = "https://pf.kakao.com/_txnVRn/friend";
+
+  // 상품 목록: 새 영상이 나오면 한 줄 추가. 주소 끝 ?p=키 로 고른다
+  const STORE = "https://smartstore.naver.com/songganefirewood/products/";
+  const PRODUCTS = {
+    // msg: 상품 소개 문단(사장님 문구). 없으면 그 문단은 빠진다
+    x10:       { name: "OX 스팟히터 X10", no: "13834844851", img: "x10.jpg",
+                 msg: "X10은 대형텐트에서도 사용할 수 있는 뛰어난 난방성능은 물론\n연소가스 없이 쾌적하고 건강한 실내 공기를 유지할 수 있는 제품입니다.\nX10과 함께 따뜻하고 건강한 겨울 보내시기 바랍니다." },
+    f1:        { name: "OX STOVE F1 캠핑용 화목난로", no: "13780183212", img: "logo.jpg" },
+    f1set:     { name: "OX STOVE F1 펠릿연소기 풀세트", no: "13779974553", img: "logo.jpg" },
+    firecatch: { name: "제이비캠핑 파이어캐치", no: "13822086824", img: "firecatch.jpg",
+                 msg: "파이어캐치는 연통 안에 넣기만 하면 연통 끝으로 날리는 불티를 크게 줄여 주는 제품입니다.\n연통 직경 53mm부터 100mm까지, 국내에서 판매 중인 거의 모든 캠핑용 난로에 쓸 수 있습니다.\n파이어캐치와 함께 불빵 걱정을 덜고 따뜻한 겨울 캠핑 보내시기 바랍니다." },
+  };
+
+  const q = new URLSearchParams(location.search);
+  const p = PRODUCTS[q.get("p")] || PRODUCTS.x10;
+  const from = q.get("from") || "direct";   // yt, ig 처럼 들어온 곳
+
+  document.getElementById("pName").textContent = p.name;
+  if (p.msg) {
+    const m = document.getElementById("pMsg");
+    m.textContent = p.msg.split("\n").join(" ");
+  }
+  const img = document.getElementById("pImg");
+  img.src = p.img; img.alt = p.name;
+  document.getElementById("goBtn").href = STORE + p.no;
+  document.getElementById("kakaoBtn").href = KAKAO_FRIEND;
+
+  const page = document.getElementById("page");
+  const key = "added_kakao";
+  try { if (sessionStorage.getItem(key)) page.classList.add("added"); } catch (e) {}
+  document.getElementById("kakaoBtn").addEventListener("click", () => {
+    page.classList.add("added");
+    try { sessionStorage.setItem(key, "1"); } catch (e) {}
+  });
+  // 클릭 수 세기(유튜브, 인스타 구분)는 올릴 때 붙인다. 지금은 시안
+</script>
+</body>
+</html>
