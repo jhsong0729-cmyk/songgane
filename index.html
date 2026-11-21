@@ -26,9 +26,9 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 440px; margin: 0 auto; padding: 18px 16px 32px; }
-  header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  header img { width: 40px; height: 40px; border-radius: 50%; }
+  .wrap { max-width: 440px; margin: 0 auto; padding: 12px 16px 28px; }
+  header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  header img { width: 36px; height: 36px; border-radius: 50%; }
   header b { font-size: 17px; }
 
   h1 { font-size: 24px; font-weight: 900; line-height: 1.35; margin-bottom: 10px; }
@@ -41,7 +41,7 @@
 
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; min-height: 58px; border-radius: 14px;
+    width: 100%; min-height: 54px; border-radius: 14px;
     font-size: 17px; font-weight: 700; text-decoration: none;
     transition: transform .08s;
   }
@@ -51,15 +51,16 @@
   .done-note { display: none; text-align: center; color: var(--sub); font-size: 14px; margin-top: 8px; }
   .added .done-note { display: block; }
 
-  .letter { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; font-size: 15px; line-height: 1.6; word-break: keep-all; }
-  .letter p + p { margin-top: 10px; }
+  .letter { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; font-size: 15px; line-height: 1.55; word-break: keep-all; }
+  .letter p + p { margin-top: 8px; }
   .letter .hello { font-size: 18px; font-weight: 900; }
   .letter #pMsg:empty { display: none; }
   .letter .invite { font-weight: 700; }
   .letter .invite em { font-style: normal; color: var(--accent); }
+  .letter .talk { color: var(--sub); }
 
   .step { font-size: 13px; color: var(--sub); font-weight: 700; margin: 0 0 8px 2px; }
-  .gap { height: 16px; }
+  .gap { height: 10px; }
 
   .product { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
   .product .row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
@@ -86,6 +87,7 @@
     <p class="invite">저희 송가네 STORE를 <em>친구 추가</em> 하시면
     할인이벤트, 공동구매, 제품 입고 소식 등을 빠르게 받아보실 수 있습니다.</p>
     <p>앞으로 더 많은 혜택을 드리기 위해 노력하겠습니다.</p>
+    <p class="talk">제품 관련 궁금한 사항이나 리뷰를 원하는 제품이 있으시면 언제든지 메시지 보내주세요</p>
   </div>
 
   <a class="btn btn-kakao" id="kakaoBtn" href="#" target="_blank" rel="noopener">
