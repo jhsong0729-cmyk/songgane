@@ -65,6 +65,17 @@
   .product .name { font-weight: 700; font-size: 16px; line-height: 1.35; }
   .product .btn-go { background: var(--ink); color: #fff; }
   .added .product { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  [hidden] { display: none !important; }
+
+  /* 여러 제품(영상 하나에 소개한 제품 묶음) — 한 줄에 사진, 이름, 버튼 */
+  .plist { padding: 6px 12px; }
+  .plist .lead { font-size: 14px; color: var(--sub); padding: 8px 2px 4px; }
+  .plist .item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .plist .lead + .item { border-top: 0; }
+  .plist .item img { flex: none; width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: #fff; border: 1px solid var(--line); }
+  .plist .item .name { flex: 1; font-weight: 700; font-size: 15px; line-height: 1.35; word-break: keep-all; }
+  .plist .item a { flex: none; padding: 9px 12px; border-radius: 10px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; }
+  .added .plist { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
 
   footer { margin-top: 28px; text-align: center; color: var(--sub); font-size: 12px; }
 
@@ -98,6 +109,14 @@
     .product .name { font-size: 20px; text-align: center; }
     .btn { min-height: 58px; font-size: 18px; }
     .btn:hover { filter: brightness(.95); }
+
+    .plist { padding: 10px 20px; }
+    .plist .lead { font-size: 15px; }
+    .plist .item { padding: 14px 0; gap: 16px; }
+    .plist .item img { width: 84px; height: 84px; }
+    .plist .item .name { font-size: 17px; }
+    .plist .item a { padding: 11px 16px; font-size: 15px; }
+    .plist .item a:hover { filter: brightness(1.25); }
 
     footer { margin-top: 36px; font-size: 13px; }
   }
@@ -147,6 +166,10 @@
         </div>
         <a class="btn btn-go" id="goBtn" href="#">상품 보러 가기</a>
       </div>
+
+      <div class="plist card" id="plist" hidden>
+        <p class="lead">영상에서 소개한 제품</p>
+      </div>
     </div>
   </div>
 
@@ -167,17 +190,54 @@
     f1set:     { name: "OX STOVE F1 펠릿연소기 풀세트", no: "13779974553", img: "logo.jpg" },
     firecatch: { name: "제이비캠핑 파이어캐치", no: "13822086824", img: "firecatch.jpg",
                  msg: "파이어캐치는 연통 안에 넣기만 하면 연통 끝으로 날리는 불티를 크게 줄여 주는 제품입니다.\n연통 직경 53mm부터 100mm까지, 국내에서 판매 중인 거의 모든 캠핑용 난로에 쓸 수 있습니다.\n파이어캐치와 함께 불빵 걱정을 덜고 따뜻한 겨울 캠핑 보내시기 바랍니다." },
+    // 11/22 제이비캠핑 파이어캐치 소개영상에 나온 제품들
+    booster_mx1: { name: "미니맥스 부스터 (MX1, MX9 컴팩트 공용)", no: "13160085857", img: "booster_mx1.jpg" },
+    momo:        { name: "빅토리캠프 모모", no: "13890112752", img: "momo.jpg" },
+    momo_around: { name: "빅토리캠프 모모 어라운드", no: "13890113337", img: "momo_around.jpg" },
+    damper:      { name: "80파이 단확관 댐퍼연통 500mm / 300mm", no: "13737965815", img: "damper.jpg" },
+  };
+
+  // 영상 하나에 여러 제품을 소개했을 때: ?v=키 로 고른다(순서는 사장님 지정).
+  // msg: 영상마다 그 제품 묶음에 맞게 새로 쓴다(11/22 사장님 "상품이 바뀔 때마다 이 부분은 따로 작성").
+  // 대본 내용으로만, 길면 제품 목록이 첫 화면 아래로 밀리니 2~3문장
+  const VIDEOS = {
+    // 사장님 문구(11/22)
+    firecatch: { msg: "오늘 영상에서 소개해 드린 불티방지 관련 상품들을 안내 해 드립니다. "
+                    + "화목난로 관련 제품들은 대량생산이 어렵다보니 자주 품절이 됩니다. "
+                    + "이 점 미리 양해를 부탁드립니다. "
+                    + "저희 송가네와 함께 즐겁고 안전한 화목난로 life를 즐겨보세요!",
+                 items: ["firecatch", "booster_mx1", "momo", "momo_around", "damper"] },
   };
 
   const q = new URLSearchParams(location.search);
-  const p = PRODUCTS[q.get("p")] || PRODUCTS.x10;
   const from = q.get("from") || "direct";   // yt, ig 처럼 들어온 곳
+  const video = VIDEOS[q.get("v")];
 
-  document.getElementById("pName").textContent = p.name;
-  if (p.msg) document.getElementById("pMsg").textContent = p.msg.split("\n").join(" ");
-  const img = document.getElementById("pImg");
-  img.src = p.img; img.alt = p.name;
-  document.getElementById("goBtn").href = STORE + p.no;
+  if (video) {
+    // 여러 제품: 한 상품 카드는 숨기고 목록을 보여 준다
+    const list = video.items;
+    document.getElementById("pMsg").textContent = video.msg;
+    document.querySelector(".product").hidden = true;
+    const box = document.getElementById("plist");
+    box.hidden = false;
+    for (const k of list) {
+      const it = PRODUCTS[k];
+      const row = document.createElement("div");
+      row.className = "item";
+      const im = document.createElement("img"); im.src = it.img; im.alt = "";
+      const nm = document.createElement("p"); nm.className = "name"; nm.textContent = it.name;
+      const a = document.createElement("a"); a.href = STORE + it.no; a.textContent = "보러 가기";
+      row.append(im, nm, a);
+      box.append(row);
+    }
+  } else {
+    const p = PRODUCTS[q.get("p")] || PRODUCTS.x10;
+    document.getElementById("pName").textContent = p.name;
+    if (p.msg) document.getElementById("pMsg").textContent = p.msg.split("\n").join(" ");
+    const img = document.getElementById("pImg");
+    img.src = p.img; img.alt = p.name;
+    document.getElementById("goBtn").href = STORE + p.no;
+  }
   document.getElementById("kakaoBtn").href = KAKAO_FRIEND;
   document.getElementById("kakaoLink").href = KAKAO_FRIEND;
 
