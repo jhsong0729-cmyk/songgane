@@ -92,14 +92,16 @@
     .letter p + p { margin-top: 14px; }
     .letter .hello { font-size: 26px; }
 
-    /* 친구 추가: 버튼 대신 QR (PC 에서 버튼을 누르면 카카오 로그인부터 뜬다) */
+    /* 친구 추가: QR + 큰 노란 버튼(11/24 사장님 "마우스로 누르는 버튼이 너무 작아"). 버튼을 누르면 카카오 로그인부터 뜬다 */
     .btn-kakao, .done-note { display: none !important; }
-    .kakao-qr { display: flex; align-items: center; gap: 20px; padding: 20px 22px; border-color: var(--kakao); box-shadow: 0 0 0 2px var(--kakao) inset; }
+    .kakao-qr { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; padding: 20px 22px; border-color: var(--kakao); box-shadow: 0 0 0 2px var(--kakao) inset; }
     .kakao-qr #qr { flex: none; width: 132px; height: 132px; padding: 6px; background: #fff; }
     .kakao-qr #qr img, .kakao-qr #qr canvas { width: 120px !important; height: 120px !important; }
     .kakao-qr b { display: block; font-size: 19px; margin-bottom: 6px; }
     .kakao-qr p { font-size: 15px; color: var(--sub); line-height: 1.5; word-break: keep-all; }
-    .kakao-qr a { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--sub); }
+    .kakao-qr .qr-text { flex: 1; min-width: 0; }
+    .kakao-qr .btn-pc { flex: 0 0 100%; min-height: 64px; font-size: 20px; background: var(--kakao); color: #191600; }
+    .kakao-qr .btn-pc svg { width: 26px; height: 26px; }
 
     .gap { height: 20px; }
 
@@ -150,11 +152,14 @@
 
       <div class="kakao-qr card">
         <div id="qr"></div>
-        <div>
+        <div class="qr-text">
           <b>카카오톡 친구 추가</b>
           <p>휴대폰 카메라로 QR을 찍으면 바로 친구 추가가 됩니다.</p>
-          <a id="kakaoLink" href="#" target="_blank" rel="noopener">PC에서 카카오 로그인으로 추가하기</a>
         </div>
+        <a class="btn btn-pc" id="kakaoLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#191600" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.8 5.3 4.6 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.6.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+          PC에서 카카오톡 친구 추가
+        </a>
       </div>
 
       <div class="gap"></div>
